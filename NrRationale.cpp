@@ -1,5 +1,5 @@
-#include "NrRationale.h"
 #include <iostream>
+#include "NrRationale.h"
 #include <cmath>
 using namespace std;
 /// cod pt clasa nr rationale
@@ -10,23 +10,13 @@ Rational::Rational(int m_numarator, int m_numitor)
 {
     numarator = m_numarator;
     numitor = m_numitor;
+    simplifica();
 }
+
 Rational::Rational (int m_numarator)
 {
     numarator = m_numarator;
     numitor = 1;
-}
-Rational::Rational (double value)
-{
-    int numarator = (int) (value);
-    int numitor = 1;
-    while (abs(value - 1)> 0.00001)
-    {
-        value *= 10;
-        numarator = (int) (value);
-        numitor *= 10;
-
-    }
 }
 
 Rational:: Rational ()
@@ -34,6 +24,23 @@ Rational:: Rational ()
         numarator = 0;
         numitor = 1;
     }
+
+Rational::Rational (double value)
+{
+   int m_numarator = (int)(value);
+   int m_numitor = 1;
+
+   while (abs(value-m_numarator)>0.00001)
+   {
+       value *= 10;
+       m_numarator = (int) value;
+       m_numitor *= 10;
+   }
+   numarator = m_numarator;
+   numitor = m_numitor;
+   simplifica();
+}
+
 
 /// cod pt setters & getters
 
@@ -46,10 +53,10 @@ int Rational:: getNumitor()
 {
     return numitor;
 }
-void Rational:: setValue (int m_numarator, int m_numitor)
+void Rational:: setValue (double value)
 {
-    numarator = m_numarator;
-    numitor = m_numitor;
+    numarator = value;
+    numitor = 1;
 }
 double Rational::getValue()
 {
@@ -108,4 +115,22 @@ ostream &operator<< (ostream &out, Rational &nr)
 {
     out<<nr.getNumarator()<<'/'<<nr.getNumitor();
     return out;
+}
+
+int Rational:: cmmdc(int a, int b)
+{
+   while(a!=b)
+    {
+        if(a>b)
+            a=a-b;
+        else
+            b=b-a;
+    }
+    return a;
+}
+void Rational:: simplifica()
+{
+    int divizor_comun = cmmdc(numarator, numitor);
+    numarator /= divizor_comun;
+    numitor /= divizor_comun;
 }

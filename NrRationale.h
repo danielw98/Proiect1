@@ -7,20 +7,19 @@ public:
 
 
     /// constructori
-    Rational (int m_numarator, int m_numitor);
     Rational ();
+    Rational (int m_numarator, int m_numitor);
     Rational (double value);
     Rational (int m_numarator);
 
     /// setteri si getteri
 
-    void setValue(int m_numarator, int m_numitor);
+    void setValue(double value);
     double getValue();
     void setNumarator(int m_numarator);
     int getNumarator();
     void setNumitor(int m_numitor);
     int getNumitor();
-    void simplifica();
 
     friend Rational &operator+(const Rational& st, const Rational& dr);
     friend Rational &operator-(const Rational& st, const Rational& dr);
@@ -33,6 +32,7 @@ private:
     int numitor;
     /// functii ajutatoare
 
+    void simplifica();
     int cmmdc(int a, int b);
 };
 
