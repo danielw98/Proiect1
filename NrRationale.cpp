@@ -53,11 +53,13 @@ int Rational:: getNumitor()
 {
     return numitor;
 }
+
 void Rational:: setValue (double value)
 {
     numarator = value;
     numitor = 1;
 }
+
 double Rational::getValue()
 {
     return (double)numarator/numitor;
@@ -109,6 +111,84 @@ Rational &operator/ (const Rational &st, const Rational &dr)
     int numaratorCrt = temp1.getNumarator() * temp2.getNumitor();
     Rational *rezultat = new Rational (numaratorCrt, numitorComun);
     return *rezultat;
+}
+
+Rational &operator+ (const Rational &st, int dr)
+{
+    Rational temp1;
+    int numitorComun = temp1.getNumitor();
+    int numaratorCrt = temp1.getNumarator() + temp1.getNumitor() * dr;
+    Rational *suma = new Rational (numaratorCrt, numitorComun);
+    return *suma;
+}
+Rational &operator- (const Rational &st, int dr)
+{
+    Rational temp1;
+    temp1 = st;
+    int numitorComun = temp1.getNumitor();
+    int numaratorCrt = temp1.getNumarator() - temp1.getNumitor() * dr;
+    Rational *diferenta = new Rational (numaratorCrt, numitorComun);
+    return *diferenta;
+}
+Rational &operator* (const Rational &st, int dr)
+{
+    Rational temp1;
+    temp1 = st;
+    int numitorComun = temp1.getNumitor();
+    int numaratorCrt = temp1.getNumarator() * dr;
+    Rational *prod = new Rational (numaratorCrt, numitorComun);
+    return *prod;
+}
+Rational &operator/ (const Rational &st, int dr)
+{
+    Rational temp1;
+    temp1 = st;
+    int numitorComun = temp1.getNumitor() * dr ;
+    int numaratorCrt = temp1.getNumarator();
+    Rational *rezultat = new Rational (numaratorCrt, numitorComun);
+    return *rezultat;
+}
+
+Rational &operator+= (Rational &st, const Rational &dr)
+{
+    st =  st + dr;
+      return st;
+}
+Rational &operator-= (Rational &st, const Rational &dr)
+{
+    st =  st - dr;
+      return st;
+}
+Rational &operator*= (Rational &st, const Rational &dr)
+{
+    st =  st * dr;
+      return st;
+}
+Rational &operator/= (Rational &st, const Rational &dr)
+{
+    st =  st / dr;
+      return st;
+}
+
+Rational &operator+= (Rational &st, int dr)
+{
+    st =  st + dr;
+      return st;
+}
+Rational &operator-= (Rational &st, int dr)
+{
+    st =  st - dr;
+      return st;
+}
+Rational &operator*= (Rational &st, int dr)
+{
+    st =  st * dr;
+      return st;
+}
+Rational &operator/= (Rational &st, int dr)
+{
+    st =  st / dr;
+      return st;
 }
 
 ostream &operator<< (ostream &out, Rational &nr)
