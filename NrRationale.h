@@ -20,30 +20,30 @@ class Rational
         int getNumitor();
 
         /// functii prietene (pentru supraincarcare de operatori)
-        friend Rational &operator+(const Rational& st, const Rational& dr);
-        friend Rational &operator-(const Rational& st, const Rational& dr);
-        friend Rational &operator*(const Rational& st, const Rational& dr);
-        friend Rational &operator/(const Rational& st, const Rational& dr);
+        friend Rational &operator+(const Rational&, const Rational&);
+        friend Rational &operator-(const Rational&, const Rational&);
+        friend Rational &operator*(const Rational&, const Rational&);
+        friend Rational &operator/(const Rational&, const Rational&);
 
-        friend Rational &operator+(double st, const Rational& dr);
-        friend Rational &operator-(double st, const Rational& dr);
-        friend Rational &operator*(double st, const Rational& dr);
-        friend Rational &operator/(double st, const Rational& dr);
+        friend Rational &operator+(double, const Rational&);
+        friend Rational &operator-(double, const Rational&);
+        friend Rational &operator*(double, const Rational&);
+        friend Rational &operator/(double, const Rational&);
 
-        friend Rational &operator+(const Rational& st, int dr);
-        friend Rational &operator-(const Rational& st, int dr);
-        friend Rational &operator*(const Rational& st, int dr);
-        friend Rational &operator/(const Rational& st, int dr);
+        friend Rational &operator+(const Rational&, int);
+        friend Rational &operator-(const Rational&, int);
+        friend Rational &operator*(const Rational&, int);
+        friend Rational &operator/(const Rational&, int);
 
-        friend Rational &operator+=(Rational &st, const Rational &dr);
-        friend Rational &operator-=(Rational &st, const Rational &dr);
-        friend Rational &operator*=(Rational &st, const Rational &dr);
-        friend Rational &operator/=(Rational &st, const Rational &dr);
+        friend Rational &operator+=(Rational&, const Rational&);
+        friend Rational &operator-=(Rational&, const Rational&);
+        friend Rational &operator*=(Rational&, const Rational&);
+        friend Rational &operator/=(Rational&, const Rational&);
 
-        friend Rational &operator+=(Rational &st, int dr);
-        friend Rational &operator-=(Rational &st, int dr);
-        friend Rational &operator*=(Rational &st, int dr);
-        friend Rational &operator/=(Rational &st, int dr);
+        friend Rational &operator+=(Rational&, int);
+        friend Rational &operator-=(Rational&, int);
+        friend Rational &operator*=(Rational&, int);
+        friend Rational &operator/=(Rational&, int);
 
 
 

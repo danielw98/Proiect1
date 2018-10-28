@@ -2,10 +2,10 @@
 #include "NrRationale.h"
 #include <cmath>
 using namespace std;
-/// cod pt clasa nr rationale
+/// Cod pt clasa Rational
 
-///cod pt constructor
 
+///Cod pt constructori
 Rational::Rational(int m_numarator, int m_numitor)
 {
     numarator = m_numarator;
@@ -43,7 +43,6 @@ Rational::Rational (double value)
 
 
 /// cod pt setters & getters
-
 int Rational:: getNumarator()
 {
     return numarator;
@@ -65,7 +64,6 @@ double Rational::getValue()
     return (double)numarator/numitor;
 }
 
-
 void Rational:: setNumarator(int m_numarator)
 {
     numarator = m_numarator;
@@ -76,6 +74,8 @@ void Rational:: setNumitor(int m_numitor)
     numitor = m_numitor;
 }
 
+
+/// Cod pt supraincarcarea operatorilor aritmetici binari - (Rational,Rational)
 Rational &operator+ (const Rational &st, const Rational &dr)
 {
     Rational temp1, temp2;
@@ -85,6 +85,7 @@ Rational &operator+ (const Rational &st, const Rational &dr)
     Rational *suma = new Rational (numaratorCrt, numitorComun);
     return *suma;
 }
+
 Rational &operator- (const Rational &st, const Rational &dr)
 {
     Rational temp1, temp2;
@@ -94,6 +95,7 @@ Rational &operator- (const Rational &st, const Rational &dr)
     Rational *diferenta = new Rational (numaratorCrt, numitorComun);
     return *diferenta;
 }
+
 Rational &operator* (const Rational &st, const Rational &dr)
 {
     Rational temp1, temp2;
@@ -103,6 +105,7 @@ Rational &operator* (const Rational &st, const Rational &dr)
     Rational *prod = new Rational (numaratorCrt, numitorComun);
     return *prod;
 }
+
 Rational &operator/ (const Rational &st, const Rational &dr)
 {
     Rational temp1, temp2;
@@ -113,14 +116,18 @@ Rational &operator/ (const Rational &st, const Rational &dr)
     return *rezultat;
 }
 
+
+///cod pt supraincarcarea operatorilor aritmetici binari - (Rational, int)
 Rational &operator+ (const Rational &st, int dr)
 {
-    Rational temp1;
-    int numitorComun = temp1.getNumitor();
-    int numaratorCrt = temp1.getNumarator() + temp1.getNumitor() * dr;
-    Rational *suma = new Rational (numaratorCrt, numitorComun);
+    Rational temp1, temp2(dr,1);
+    temp1 = st;
+    Rational *suma = new Rational;
+    *suma = temp1+temp2;
+
     return *suma;
 }
+
 Rational &operator- (const Rational &st, int dr)
 {
     Rational temp1;
@@ -130,6 +137,7 @@ Rational &operator- (const Rational &st, int dr)
     Rational *diferenta = new Rational (numaratorCrt, numitorComun);
     return *diferenta;
 }
+
 Rational &operator* (const Rational &st, int dr)
 {
     Rational temp1;
@@ -139,6 +147,7 @@ Rational &operator* (const Rational &st, int dr)
     Rational *prod = new Rational (numaratorCrt, numitorComun);
     return *prod;
 }
+
 Rational &operator/ (const Rational &st, int dr)
 {
     Rational temp1;
@@ -149,6 +158,37 @@ Rational &operator/ (const Rational &st, int dr)
     return *rezultat;
 }
 
+
+///cod pt supraincarcarea operatorilor aritmetici binari - (double, Rational)
+Rational &operator+(double st, const Rational& dr)
+{
+    Rational temp1 = (Rational)(st);
+    Rational temp2 = dr;
+    return temp1 + temp2;
+}
+
+Rational &operator-(double st, const Rational& dr)
+{
+    Rational temp1 = (Rational)(st);
+    Rational temp2 = dr;
+    return temp1 - temp2;
+}
+
+Rational &operator*(double st, const Rational& dr)
+{
+    Rational temp1 = (Rational)(st);
+    Rational temp2 = dr;
+    return temp1 * temp2;
+}
+
+Rational &operator/(double st, const Rational& dr)
+{
+    Rational temp1 = (Rational)(st);
+    Rational temp2 = dr;
+    return temp1 / temp2;
+}
+
+/// Cod pt supraincarcarea operatorilor compusi - (Rational, Rational)
 Rational &operator+= (Rational &st, const Rational &dr)
 {
     st =  st + dr;
@@ -170,6 +210,7 @@ Rational &operator/= (Rational &st, const Rational &dr)
       return st;
 }
 
+/// Cod pt supraincarcarea operatorilor compusi - (Rational, int)
 Rational &operator+= (Rational &st, int dr)
 {
     st =  st + dr;
@@ -193,7 +234,14 @@ Rational &operator/= (Rational &st, int dr)
 
 ostream &operator<< (ostream &out, Rational &nr)
 {
-    out<<nr.getNumarator()<<'/'<<nr.getNumitor();
+    if(nr.getNumitor() == 1)
+    {
+        out<<nr.getNumarator();
+    }
+    else
+    {
+        out<<nr.getNumarator()<<'/'<<nr.getNumitor();
+    }
     return out;
 }
 
