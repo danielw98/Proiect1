@@ -42,7 +42,12 @@ Rational::Rational(double value)
 	denominator = m_denominator;
 	simplify();
 }
-
+/// construnctor de copiere
+Rational::Rational (const Rational& obj)
+{
+    numerator = obj.numerator;
+    denominator = obj.denominator;
+}
 
 /// cod pt setters & getters
 int Rational::getNumerator()
@@ -300,7 +305,7 @@ void Rational::simplify()
 
 
 
-///Supraincarcarea operatorilor relationali
+///Supraincarcarea operatorilor relationali (Rational, Rational)
 bool operator== (const Rational &left, const Rational &right)
 {
     int temp1 = left.numerator * right.denominator;
@@ -338,6 +343,81 @@ bool operator>= (const Rational &left, const Rational &right)
 }
 
 
+/// supraincarcarea operatorilor relationali (Rational, int)
+bool operator== (const Rational &left, const int right)
+{
+    int temp1 = left.numerator;
+    int temp2 = left.denominator * right;
+    return temp1 == temp2 ;
+}
+
+bool operator> (const Rational &left, const int right)
+{
+    int temp1 = left.numerator;
+    int temp2 = left.denominator * right;
+    return temp1 > temp2 ;
+}
+
+bool operator< (const Rational &left, const int right)
+{
+    int temp1 = left.numerator;
+    int temp2 = left.denominator * right;
+    return temp1 < temp2 ;
+}
+
+bool operator!= (const Rational &left, const int right)
+{
+    return ! (left == right);
+}
+
+bool operator<= (const Rational &left, const int right)
+{
+    return (left == right) || (left < right);
+}
+
+bool operator>= (const Rational &left, const int right)
+{
+    return (left == right) || (left > right);
+}
+
+///Supraincarcarea operatorilor relationali (int, Rational)
+bool operator== (const int left, const Rational &right)
+{
+    int temp1 = left * right.denominator;
+    int temp2 = right.numerator;
+    return temp1 == temp2 ;
+}
+
+bool operator> (const int left, const Rational &right)
+{
+    int temp1 = left * right.denominator;
+    int temp2 = right.numerator;
+    return temp1 > temp2 ;
+}
+
+bool operator< (const int left, const Rational &right)
+{
+    int temp1 = left * right.denominator;
+    int temp2 = right.numerator;
+    return temp1 < temp2 ;
+}
+
+bool operator!= (const int left, const Rational &right)
+{
+    return ! (left == right);
+}
+
+bool operator<= (const int left, const Rational &right)
+{
+    return (left == right) || (left < right);
+}
+
+bool operator>= (const int left, const Rational &right)
+{
+    return (left == right) || (left > right);
+}
+
+
 /// supraincarcarea operatorului de ridicare la putere ^
 Rational operator ^(Rational &nr, int a)
 {
@@ -347,8 +427,15 @@ Rational operator ^(Rational &nr, int a)
         temp = nr.numerator;
         nr.numerator = nr.denominator;
         nr.denominator = temp;
+        a = -a;
     }
-    nr.numerator = nr.numerator ^ a;
-    nr.denominator = nr.denominator ^a;
+    int powNum = nr.numerator, powDen = nr.denominator;
+    while(a > 1)
+    {
+        nr.numerator *= powNum;
+        nr.denominator *=  powDen;
+        --a;
+    }
+
     return nr;
 }

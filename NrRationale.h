@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <cmath>
 using namespace std;
 class Rational
 {
@@ -12,6 +13,7 @@ public:
 	Rational(int, int);
 	Rational(double);
 	Rational(int);
+	Rational(const Rational&);
 
 	/// setteri si getteri
 

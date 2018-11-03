@@ -1,4 +1,5 @@
 #include "NrRationale.cpp"
+
 using namespace std;
 
 int main ()
@@ -56,7 +57,8 @@ int main ()
     r9 = m / r10;
     cout<<r6<<'\t'<<r7<<'\t'<<r8<<'\t'<<r9<<endl;
 
-cout<<"\nSupraincarcarea operatorilor relationali ==, <, >, <=, >=, != : \n";
+
+cout<<"\nSupraincarcarea operatorilor relationali ==, <, >, <=, >=, != (Rational, Rational) : \n";
 Rational r25;
 Rational r26(3,2), r27(5,2), r28(3,2), r29(1,2);
 bool m1 = (r26 < r27), m2 = (r26 == r28), m3 = (r26 != r27), m4 = (r26 > r28), m5 = (r26 >= r28), m6 = (r26 <= r29);
@@ -68,9 +70,32 @@ cout << r26 << "  >=  " << r28 << '\t' << m5<<endl;
 cout << r26 << "  <=  " << r29 << '\t' << m6<<endl;
 
 
-int a = -1;
+cout<<"\nSupraincarcarea operatorilor relationali ==, <, >, <=, >=, != (Rational, int) : \n";
+m1 = (r26 < 2), m2 = (r29 == 2), m3 = (r29 != 3), m4 = (r26 > 1), m5 = (r26 >= 3), m6 = (r29 <= 1);
+cout << r26 << "  <   " << 2 << '\t' << m1<<endl;
+cout << r29 << "  ==  " << 2 << '\t' << m2<<endl;
+cout << r29 << "  !=  " << 3 << '\t' << m3<<endl;
+cout << r26 << "  >   " << 1 << '\t' << m4<<endl;
+cout << r26 << "  >=  " << 3 << '\t' << m5<<endl;
+cout << r29 << "  <=  " << 1 << '\t' << m6<<endl;
+
+
+cout<<"\nSupraincarcarea operatorilor relationali ==, <, >, <=, >=, != (int, Rational) : \n";
+m1 = (2 < r26), m2 = (2 == r29), m3 = (3 != r29), m4 = (1 > r26), m5 = (3 >= r26), m6 = (1 <= r29);
+cout << 2 << "  <   " << r26 << '\t' << m1<<endl;
+cout << 2 << "  ==  " << r29 << '\t' << m2<<endl;
+cout << 3 << "  !=  " << r29 << '\t' << m3<<endl;
+cout << 1 << "  >   " << r26 << '\t' << m4<<endl;
+cout << 3 << "  >=  " << r26 << '\t' << m5<<endl;
+cout << 1 << "  <=  " << r29 << '\t' << m6<<endl;
+
+
+cout<<"\nRidicarea unui nr rational la o putere: \n";
+int a = -3;
 Rational r30;
-r30 = r26 ^a;
-cout<<'\n'<<r30;
+cout<<r26<<" ^ "<<a<<" = ";
+r30 = r26 ^ a;
+cout<<r30<<endl;
+
     return 0;
 }
