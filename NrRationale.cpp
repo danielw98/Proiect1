@@ -6,259 +6,349 @@ using namespace std;
 
 
 ///Cod pt constructori
-Rational::Rational(int m_numarator, int m_numitor)
+Rational::Rational(int m_numerator, int m_denominator)
 {
-    numarator = m_numarator;
-    numitor = m_numitor;
-    simplifica();
+	numerator = m_numerator;
+	denominator = m_denominator;
+	if (m_denominator == 0)
+        cout << "nu puteti imparti la 0!";
+	simplify();
 }
 
-Rational::Rational (int m_numarator)
+Rational::Rational(int m_numerator)
 {
-    numarator = m_numarator;
-    numitor = 1;
+	numerator = m_numerator;
+	denominator = 1;
 }
 
-Rational:: Rational ()
-    {
-        numarator = 0;
-        numitor = 1;
-    }
-
-Rational::Rational (double value)
+Rational::Rational()
 {
-   int m_numarator = (int)(value);
-   int m_numitor = 1;
+	numerator = 0;
+	denominator = 1;
+}
 
-   while (abs(value-m_numarator)>0.00001)
-   {
-       value *= 10;
-       m_numarator = (int) value;
-       m_numitor *= 10;
-   }
-   numarator = m_numarator;
-   numitor = m_numitor;
-   simplifica();
+Rational::Rational(double value)
+{
+	int m_numerator = (int)(value);
+	int m_denominator = 1;
+
+	while (abs(value - m_numerator) > 0.00001)
+	{
+		value *= 10;
+		m_numerator = (int)value;
+		m_denominator *= 10;
+	}
+	numerator = m_numerator;
+	denominator = m_denominator;
+	simplify();
 }
 
 
 /// cod pt setters & getters
-int Rational:: getNumarator()
+int Rational::getNumerator()
 {
-    return numarator;
+	return numerator;
 }
 
-int Rational:: getNumitor()
+int Rational::getDenominator()
 {
-    return numitor;
+	return denominator;
 }
 
-void Rational:: setValue (double value)
+void Rational::setValue(double value)
 {
-    numarator = value;
-    numitor = 1;
+	numerator = value;
+	denominator = 1;
 }
 
 double Rational::getValue()
 {
-    return (double)numarator/numitor;
+	return (double)numerator / denominator;
 }
 
-void Rational:: setNumarator(int m_numarator)
+void Rational::setNumerator(int m_numerator)
 {
-    numarator = m_numarator;
+	numerator = m_numerator;
 }
 
-void Rational:: setNumitor(int m_numitor)
+void Rational::setDenominator(int m_denominator)
 {
-    numitor = m_numitor;
+	denominator = m_denominator;
 }
 
 
 /// Cod pt supraincarcarea operatorilor aritmetici binari - (Rational,Rational)
-Rational &operator+ (const Rational &st, const Rational &dr)
+Rational &operator+ (const Rational &left, const Rational &right)
 {
-    Rational temp1, temp2;
-    temp1 = st; temp2 = dr;
-    int numitorComun = temp1.getNumitor() * temp2.getNumitor() ;
-    int numaratorCrt = temp1.getNumarator() * temp2.getNumitor() + temp2.getNumarator() * temp1.getNumitor();
-    Rational *suma = new Rational (numaratorCrt, numitorComun);
-    return *suma;
+	Rational temp1, temp2;
+	temp1 = left; temp2 = right;
+	int commonDen = temp1.getDenominator() * temp2.getDenominator();
+	int crtNum = temp1.getNumerator() * temp2.getDenominator() + temp2.getNumerator() * temp1.getDenominator();
+	Rational *sum = new Rational(crtNum, commonDen);
+	return *sum;
 }
 
-Rational &operator- (const Rational &st, const Rational &dr)
+Rational &operator- (const Rational &left, const Rational &right)
 {
-    Rational temp1, temp2;
-    temp1 = st; temp2 = dr;
-    int numitorComun = temp1.getNumitor() * temp2.getNumitor() ;
-    int numaratorCrt = temp1.getNumarator() * temp2.getNumitor() - temp2.getNumarator() * temp1.getNumitor();
-    Rational *diferenta = new Rational (numaratorCrt, numitorComun);
-    return *diferenta;
+	Rational temp1, temp2;
+	temp1 = left; temp2 = right;
+	Rational *diff = new Rational;
+
+        if (temp1.getValue() < temp2.getValue())
+            {
+                *diff = -(temp2 + (-temp1));
+                return *diff;
+            }
+        else
+            {
+                *diff = temp1+(-temp2);
+                    return *diff;
+            }
 }
 
-Rational &operator* (const Rational &st, const Rational &dr)
+Rational &operator* (const Rational &left, const Rational &right)
 {
-    Rational temp1, temp2;
-    temp1 = st; temp2 = dr;
-    int numitorComun = temp1.getNumitor() * temp2.getNumitor() ;
-    int numaratorCrt = temp1.getNumarator() * temp2.getNumarator();
-    Rational *prod = new Rational (numaratorCrt, numitorComun);
-    return *prod;
+	Rational temp1, temp2;
+	temp1 = left; temp2 = right;
+	int commonDen = temp1.getDenominator() * temp2.getDenominator();
+	int crtNum = temp1.getNumerator() * temp2.getNumerator();
+	Rational *prod = new Rational(crtNum, commonDen);
+	return *prod;
 }
 
-Rational &operator/ (const Rational &st, const Rational &dr)
+Rational &operator/ (const Rational &left, const Rational &right)
 {
-    Rational temp1, temp2;
-    temp1 = st; temp2 = dr;
-    int numitorComun = temp1.getNumitor() * temp2.getNumarator() ;
-    int numaratorCrt = temp1.getNumarator() * temp2.getNumitor();
-    Rational *rezultat = new Rational (numaratorCrt, numitorComun);
-    return *rezultat;
+	Rational temp1, temp2;
+	temp1 = left; temp2 = right;
+	int commonDen = temp1.getDenominator() * temp2.getNumerator();
+	int crtNum = temp1.getNumerator() * temp2.getDenominator();
+	Rational *rezultat = new Rational(crtNum, commonDen);
+	return *rezultat;
 }
 
 
 ///cod pt supraincarcarea operatorilor aritmetici binari - (Rational, int)
-Rational &operator+ (const Rational &st, int dr)
+Rational &operator+ (const Rational &left, int right)
 {
-    Rational temp1, temp2(dr,1);
-    temp1 = st;
-    Rational *suma = new Rational;
-    *suma = temp1+temp2;
-
-    return *suma;
+	Rational temp1, temp2(right, 1);
+	temp1 = left;
+	return temp1 + temp2;
 }
 
-Rational &operator- (const Rational &st, int dr)
+Rational &operator- (const Rational &left, int right)
 {
-    Rational temp1;
-    temp1 = st;
-    int numitorComun = temp1.getNumitor();
-    int numaratorCrt = temp1.getNumarator() - temp1.getNumitor() * dr;
-    Rational *diferenta = new Rational (numaratorCrt, numitorComun);
-    return *diferenta;
+	Rational temp1, temp2(right,1);
+	temp1 = left;
+	return temp1 - temp2;
 }
 
-Rational &operator* (const Rational &st, int dr)
+Rational &operator* (const Rational &left, int right)
 {
-    Rational temp1;
-    temp1 = st;
-    int numitorComun = temp1.getNumitor();
-    int numaratorCrt = temp1.getNumarator() * dr;
-    Rational *prod = new Rational (numaratorCrt, numitorComun);
-    return *prod;
+	Rational temp1, temp2(right,1);
+	temp1 = left;
+	return temp1 * temp2;
 }
 
-Rational &operator/ (const Rational &st, int dr)
+Rational &operator/ (const Rational &left, int right)
 {
-    Rational temp1;
-    temp1 = st;
-    int numitorComun = temp1.getNumitor() * dr ;
-    int numaratorCrt = temp1.getNumarator();
-    Rational *rezultat = new Rational (numaratorCrt, numitorComun);
-    return *rezultat;
+	Rational temp1, temp2(right,1);
+	temp1 = left;
+	return temp1 / temp2;
 }
 
 
 ///cod pt supraincarcarea operatorilor aritmetici binari - (double, Rational)
-Rational &operator+(double st, const Rational& dr)
+Rational &operator+(double left, const Rational& right)
 {
-    Rational temp1 = (Rational)(st);
-    Rational temp2 = dr;
-    return temp1 + temp2;
+	Rational temp1 = (Rational)(left);
+	Rational temp2 = right;
+	return temp1 + temp2;
 }
 
-Rational &operator-(double st, const Rational& dr)
+Rational &operator-(double left, const Rational& right)
 {
-    Rational temp1 = (Rational)(st);
-    Rational temp2 = dr;
-    return temp1 - temp2;
+	Rational temp1 = (Rational)(left);
+	Rational temp2 = right;
+	return temp1 - temp2;
 }
 
-Rational &operator*(double st, const Rational& dr)
+Rational &operator*(double left, const Rational& right)
 {
-    Rational temp1 = (Rational)(st);
-    Rational temp2 = dr;
-    return temp1 * temp2;
+	Rational temp1 = (Rational)(left);
+	Rational temp2 = right;
+	return temp1 * temp2;
 }
 
-Rational &operator/(double st, const Rational& dr)
+Rational &operator/(double left, const Rational& right)
 {
-    Rational temp1 = (Rational)(st);
-    Rational temp2 = dr;
-    return temp1 / temp2;
+	Rational temp1 = (Rational)(left);
+	Rational temp2 = right;
+	return temp1 / temp2;
 }
+
 
 /// Cod pt supraincarcarea operatorilor compusi - (Rational, Rational)
-Rational &operator+= (Rational &st, const Rational &dr)
+Rational &operator+= (Rational &left, const Rational &right)
 {
-    st =  st + dr;
-      return st;
+	left = left + right;
+	return left;
 }
-Rational &operator-= (Rational &st, const Rational &dr)
+
+Rational &operator-= (Rational &left, const Rational &right)
 {
-    st =  st - dr;
-      return st;
+	left = left - right;
+	return left;
 }
-Rational &operator*= (Rational &st, const Rational &dr)
+
+Rational &operator*= (Rational &left, const Rational &right)
 {
-    st =  st * dr;
-      return st;
+	left = left * right;
+	return left;
 }
-Rational &operator/= (Rational &st, const Rational &dr)
+
+Rational &operator/= (Rational &left, const Rational &right)
 {
-    st =  st / dr;
-      return st;
+	left = left / right;
+	return left;
 }
+
 
 /// Cod pt supraincarcarea operatorilor compusi - (Rational, int)
-Rational &operator+= (Rational &st, int dr)
+Rational Rational :: operator+= (int right)
 {
-    st =  st + dr;
-      return st;
+	*this = *this + right;
+	return *this;
 }
-Rational &operator-= (Rational &st, int dr)
+Rational Rational :: operator-= (int right)
 {
-    st =  st - dr;
-      return st;
+	*this = *this - right;
+	return *this;
 }
-Rational &operator*= (Rational &st, int dr)
+Rational Rational :: operator*= (int right)
 {
-    st =  st * dr;
-      return st;
+	*this = *this * right;
+	return *this;
 }
-Rational &operator/= (Rational &st, int dr)
+Rational Rational :: operator/= (int right)
 {
-    st =  st / dr;
-      return st;
+	*this = *this / right;
+	return *this;
 }
 
+
+/// cod pt supraincarcarea operatorilor aritmetici unari + -
+Rational Rational :: operator-()
+{
+    this->numerator = -numerator;
+    return *this;
+}
+
+Rational Rational :: operator+()
+{
+    return *this;
+}
+
+
+/// cod pt supraincarcarea operatorilor de citire si afisare
 ostream &operator<< (ostream &out, Rational &nr)
 {
-    if(nr.getNumitor() == 1)
-    {
-        out<<nr.getNumarator();
-    }
-    else
-    {
-        out<<nr.getNumarator()<<'/'<<nr.getNumitor();
-    }
-    return out;
+	if (nr.getDenominator() == 1)
+	{
+		out << nr.getNumerator();
+	}
+	else
+	{
+		out << nr.getNumerator() << '/' << nr.getDenominator();
+	}
+	return out;
 }
 
-int Rational:: cmmdc(int a, int b)
+istream &operator>> (istream &in, Rational &nr)
 {
-   while(a!=b)
-    {
-        if(a>b)
-            a=a-b;
-        else
-            b=b-a;
-    }
-    return a;
+    char c;
+    int m = 0, i = 1;
+//    while (getchar(c) != ' ') /// 32 - in tabela ASCII, corespunde <space>
+        {
+            m = m + i * c;
+        }
+        cout<<m;
+
+        return in;
 }
-void Rational:: simplifica()
+
+
+
+/// functii ajutatoare
+int Rational::cmmdc(int a, int b)
 {
-    int divizor_comun = cmmdc(numarator, numitor);
-    numarator /= divizor_comun;
-    numitor /= divizor_comun;
+	while (a != b)
+	{
+		if (a > b)
+			a = a - b;
+		else
+			b = b - a;
+	}
+	return a;
+}
+void Rational::simplify()
+{
+	int common_divisor = cmmdc(numerator, denominator);
+	numerator /= common_divisor;
+	denominator /= common_divisor;
+}
+
+
+
+
+///Supraincarcarea operatorilor relationali
+bool operator== (const Rational &left, const Rational &right)
+{
+    int temp1 = left.numerator * right.denominator;
+    int temp2 = left.denominator * right.numerator;
+    return temp1 == temp2 ;
+}
+
+bool operator> (const Rational &left, const Rational &right)
+{
+    int temp1 = left.numerator * right.denominator;
+    int temp2 = left.denominator * right.numerator;
+    return temp1 > temp2 ;
+}
+
+bool operator< (const Rational &left, const Rational &right)
+{
+    int temp1 = left.numerator * right.denominator;
+    int temp2 = left.denominator * right.numerator;
+    return temp1 < temp2 ;
+}
+
+bool operator!= (const Rational &left, const Rational &right)
+{
+    return ! (left == right);
+}
+
+bool operator<= (const Rational &left, const Rational &right)
+{
+    return (left == right) || (left < right);
+}
+
+bool operator>= (const Rational &left, const Rational &right)
+{
+    return (left == right) || (left > right);
+}
+
+
+/// supraincarcarea operatorului de ridicare la putere ^
+Rational operator ^(Rational &nr, int a)
+{
+    int temp;
+    if (a < 0)
+    {
+        temp = nr.numerator;
+        nr.numerator = nr.denominator;
+        nr.denominator = temp;
+    }
+    nr.numerator = nr.numerator ^ a;
+    nr.denominator = nr.denominator ^a;
+    return nr;
 }

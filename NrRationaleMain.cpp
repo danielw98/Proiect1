@@ -8,8 +8,8 @@ int main ()
     Rational r2;
     Rational r3(3.14);
     Rational r4(12);
-    Rational r5(4,6);
-    cout<<r1<<" "<<r2<<" "<<r3<<" "<<r4<<endl;
+    Rational r5(5,2);
+    cout<<r1<<'\t'<<r2<<'\t'<<r3<<'\t'<<r4<<endl;
 
     cout<<"\nSupraincarcarea operatorilor aritmetici binari +, -, *, /: "<<r1<<" "<<r5<<endl;
     Rational r6 = r1 + r5 ;
@@ -30,7 +30,7 @@ int main ()
     cout<<r6<<'\t'<<r7<<'\t'<<r8<<'\t'<<r9<<endl;
 
 
-    int k = 2;
+    int k = 3;
 
     cout<<"\nSupraincarcarea operatorilor aritmetici binari +, -, *, / pentru numere intregi: "<<r10<<" "<<k<<endl;
     r6 = r10 + k;
@@ -56,6 +56,21 @@ int main ()
     r9 = m / r10;
     cout<<r6<<'\t'<<r7<<'\t'<<r8<<'\t'<<r9<<endl;
 
+cout<<"\nSupraincarcarea operatorilor relationali ==, <, >, <=, >=, != : \n";
+Rational r25;
+Rational r26(3,2), r27(5,2), r28(3,2), r29(1,2);
+bool m1 = (r26 < r27), m2 = (r26 == r28), m3 = (r26 != r27), m4 = (r26 > r28), m5 = (r26 >= r28), m6 = (r26 <= r29);
+cout << r26 << "  <   " << r27 << '\t' << m1 <<endl;
+cout << r26 << "  ==  " << r28 << '\t' << m2<<endl;
+cout << r26 << "  !=  " << r27 << '\t' << m3<<endl;
+cout << r26 << "  >   " << r28 << '\t' << m4<<endl;
+cout << r26 << "  >=  " << r28 << '\t' << m5<<endl;
+cout << r26 << "  <=  " << r29 << '\t' << m6<<endl;
 
+
+int a = -1;
+Rational r30;
+r30 = r26 ^a;
+cout<<'\n'<<r30;
     return 0;
 }
