@@ -108,4 +108,3 @@ class Rational
             int cmmdc(int, int);
 
     };
-
