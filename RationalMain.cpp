@@ -1,7 +1,5 @@
 #include "Rational.cpp"
 
-using namespace std;
-
 int main ()
     {
 
@@ -118,6 +116,7 @@ int main ()
             r30 = r26^c, r26 = temp;
         std :: cout << r30 << endl;
 
+
 /********************************************************************************/
         std :: cout << "\nSupraincarcarea operatorilor de conversie la (tip): \n";
             int r50 = (int)r10;
@@ -126,6 +125,20 @@ int main ()
         std :: cout << "Pentru double:  " << r10 << " devine " << value << endl;
             std :: string str = (std :: string) r10;
         std :: cout << "Pentru string:  " << r10 << " devine " << str   << endl;
+
+
+/********************************************************************************/
+            Rational r40;
+        std :: cout << "\n\nIntroduceti un nr rational: ";
+        try
+            {
+                std :: cin >> r40;
+            }
+        catch (const exception & e)
+            {
+                std::cout << e.what() << "\n";
+            }
+        std :: cout << "Numarul introdus este " << r40<<endl;
             return 0;
 
 
