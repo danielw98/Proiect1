@@ -1,7 +1,9 @@
 #include <iostream>
 #include <cmath>
-#include <string>
 #include <sstream>
+#include <cstdlib>
+#include <cstring>
+#include <stdexcept>
 #include "Rational.h"
 /// Cod pt clasa Rational
 
@@ -12,7 +14,12 @@
             m_numerator = numerator;
             m_denominator = denominator;
             if (denominator == 0)
-                std :: cout << "nu puteti imparti la 0!";
+                {
+                    throw std :: runtime_error("nu puteti imparti la 0!");
+                    m_numerator = 0;
+                    m_denominator = 1;
+                }
+
             simplify();
         }
 
@@ -81,6 +88,10 @@
 
     void Rational::setDenominator(int denominator)
         {
+            if (denominator == 0)
+            {
+                throw std :: runtime_error("Can't divide by 0\n");
+            }
             m_denominator = denominator;
         }
 
@@ -401,14 +412,21 @@
             {
                 nr.m_numerator = 1;
                 nr.m_denominator = 1;
+                return nr;
             }
             if (a < 0)
                 {
+                     if(nr.m_numerator == 0)
+                        {
+                            throw std::runtime_error("Can't divide by 0\n");
+                        }
                     temp = nr.m_numerator;
                     nr.m_numerator = nr.m_denominator;
                     nr.m_denominator = temp;
                     a = -a;
                 }
+
+
             int powNum = nr.m_numerator, powDen = nr.m_denominator;
             while(a > 1)
                 {
@@ -474,15 +492,32 @@
                 return out;
         }
 
-    istream &operator>> (istream &in, Rational &nr)
+std::istream &operator>> (std::istream &in, Rational &nr)
         {
 
-            std :: string ::strtoi(str.c_str(), &ptr, base)
-            string stream;
-            in >> stream;
-            int sign = 1;
+            char stream[100], temp[50];
+            int n1, n2;
+
+            in.get(stream, 100);
+            char *pch  = strtok (stream, "/ ");
+            if (pch != NULL)
+            {
+                strcpy(temp, pch);
+                nr.setNumerator(atoi(temp));
+            }
+            pch = strtok (NULL, " ");
+            if (pch != NULL)
+            {
+                strcpy(temp, pch);
+                 nr.setDenominator(atoi(temp));
+            }
+
+            if(nr.m_denominator == 0)
+                throw std::runtime_error("Can't divide by 0\n");
+           // std::cout << nr.m_numerator << "\n" << nr.m_denominator << "\n\n";
+   /*         int sign = 1;
             bool denominator_exists = false;
-            for(string :: size_type i = 0; i < stream.size(); ++i)
+            for(int i; i < stream.size(); ++i)
                 {
                     if (stream[i] == '-')
                         {
@@ -497,10 +532,10 @@
                 {
                     size_t slash = stream.find('/'); /// cautam pozitia slash-ului in string
                     nr.m_numerator = sign *  stoi(stream.substr(0, slash)); /// convertim la int substring-ul, tinand cont de semn
-                    nr.m_denominator =  stoi (stream.substr( slash+1, stream.length() ) );
+                    nr.m_denominator =  stoi (stream.substr(slash+1, stream.length() ) );
                     if (nr.m_denominator == 0)
                         {
-                            throw runtime_error(" \nNumitorul nu poate fi 0!\n");
+                            throw std::  runtime_error(" \nNumitorul nu poate fi 0!\n");
                         }
                 }
             else
@@ -508,7 +543,7 @@
                     nr.m_numerator = sign * std :: stoi(stream);
                     nr.m_denominator = 1;
                 }
-
+*/
 
                 return in;
         }
